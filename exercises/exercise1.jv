@@ -16,7 +16,7 @@ pipeline AirportPipeline {
     block AirportPipelineTextFileInterpreter oftype TextFileInterpreter{}
 
     block AirportPipelineCSVInterpreter oftype CSVInterpreter {
-        enclosing: ';';
+        delimiter: ";";
     }
 
     block AirportPipelineExtractor oftype HttpExtractor {
