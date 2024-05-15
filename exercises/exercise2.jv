@@ -1,0 +1,58 @@
+pipeline BaumpflanzungenPipeLine {
+    FlanzungenPipelineExtractor
+        -> FlanzungenPipelineTextFileInterpreter
+        -> FlanzungenPipelineCSVInterpreter
+        -> FlanzungDeutschNameColumnDeleter
+        -> FlanzungenPipelineTableInterpreter
+		-> FlanzungenPipelineLoader;
+
+    block FlanzungenPipelineExtractor oftype HttpExtractor {
+        url: "https://opendata.rhein-kreis-neuss.de/api/v2/catalog/datasets/stadt-neuss-herbstpflanzung-2023/exports/csv";
+    }
+
+    block FlanzungenPipelineTextFileInterpreter oftype TextFileInterpreter{}
+
+    block FlanzungenPipelineCSVInterpreter oftype CSVInterpreter {
+        delimiter: ";";
+    }
+
+    block FlanzungDeutschNameColumnDeleter oftype ColumnDeleter{
+        delete: [column E];
+    }
+
+    block FlanzungenPipelineTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+            "lfd_nr" oftype integer,
+            "stadtteil" oftype stadtteilType,
+            "standort" oftype text,
+            "baumart_botanisch" oftype text,
+            "id" oftype idType,
+            "baumfamilie" oftype text,
+
+        ];
+    }
+
+    block FlanzungenPipelineLoader oftype SQLiteLoader {
+        table: "trees";
+        file: "./trees.sqlite";
+    }
+}
+
+valuetype stadtteilType oftype text{
+    
+    constraints: [FurthConstraint];
+}
+constraint FurthConstraint oftype RegexConstraint{
+    regex: /^Furth-.*$/;
+
+}
+
+valuetype idType oftype text{
+    constraints:[idConstraint];
+}
+
+constraint idConstraint oftype RegexConstraint{
+    regex: /^-?(\d{1,3})\.\d+\,\s-?(\d{1,3})\.\d+$/;
+
+}
