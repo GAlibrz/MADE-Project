@@ -1,0 +1,101 @@
+pipeline TemperaturePipeline {
+  DatasetExtractor -> Unarchiver;
+  Unarchiver
+    -> DataPicker
+    -> TemperatureTextFileInterpreter
+    -> TemperatureCSVInterpreter
+    -> ColumnNameWriter
+    -> HeaderWriter
+    -> RelevantDataSelector
+    -> TemperatureTableInterpreter
+    -> TemperatureTransformer
+    -> TemperatureBatteryTransformer
+    -> TemperaturesDatabaseWriter;
+
+  block DatasetExtractor oftype HttpExtractor {
+      url: "https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip";
+  }
+
+  block Unarchiver oftype ArchiveInterpreter {
+      archiveType: "zip";
+  }
+
+  block DataPicker oftype FilePicker {
+      path: "/data.csv";
+  }
+
+  block TemperatureTextFileInterpreter oftype TextFileInterpreter {}
+
+  block TemperatureCSVInterpreter oftype CSVInterpreter {
+      delimiter: ';';
+  }
+
+
+
+  block ColumnNameWriter oftype CellWriter {
+      at: range A1:E1;
+      write: ["id", "producer", "model", "month", "temperature"];
+  }
+
+  block HeaderWriter oftype CellWriter {
+      at: cell J1;
+      write: ["battery_temperature"];
+  }
+
+  block RelevantDataSelector oftype CellRangeSelector {
+      select: range A1:J*;
+  }
+
+  block TemperatureTableInterpreter oftype TableInterpreter {
+      header: true;
+      columns: [
+          "id" oftype NaturalNumber,
+          "producer" oftype text,
+          "model" oftype text,
+          "month" oftype MonthNumber,
+          "temperature" oftype decimal,
+          "battery_temperature" oftype decimal
+      ];
+  }
+
+  transform Celsius2Fahrenheit {
+      from Celsius oftype decimal;
+      to Fahrenheit oftype decimal;
+      Fahrenheit : (Celsius * 9/5) + 32;
+  }
+
+  block TemperatureTransformer oftype TableTransformer {
+      inputColumns: ["temperature"];
+      outputColumn: "temperature";
+      use: Celsius2Fahrenheit;
+  }
+
+  block TemperatureBatteryTransformer oftype TableTransformer {
+      inputColumns: ["battery_temperature"];
+      outputColumn: "battery_temperature";
+      use: Celsius2Fahrenheit;
+  }
+
+  block TemperaturesDatabaseWriter oftype SQLiteLoader {
+      table: "temperatures";
+      file: "./temperatures.sqlite";
+  }
+}
+
+
+valuetype NaturalNumber oftype integer {
+  constraints: [ NaturalConstraint ];
+}
+
+constraint NaturalConstraint oftype RangeConstraint {
+    lowerBound: 0;
+}
+
+valuetype MonthNumber oftype integer {
+  constraints: [ MonthConstraint ];
+}
+
+constraint MonthConstraint oftype RangeConstraint {
+    lowerBound: 0;
+    upperBound: 12;
+}
