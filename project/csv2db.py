@@ -5,6 +5,7 @@ import gc
 from kaggle.api.kaggle_api_extended import KaggleApi
 import matplotlib.pyplot as plt
 from statsmodels.tsa.stattools import grangercausalitytests
+import numpy as np
 
 stock_start_date = '1998-01-01'
 stock_end_date = '2020-07-01'
@@ -40,6 +41,11 @@ def stock_df_column_handler(df,columns):
     df['price'] = (df['Open'] + df['Close']) / 2
     df = df.filter(items = columns)
     return df
+
+def fill_na_with_row_mean(row):
+    numeric_cols = row.drop(labels=['Date'])  # Exclude the 'Date' column
+    mean_value = numeric_cols.mean()
+    return row.apply(lambda x: mean_value if pd.isna(x) and np.issubdtype(type(x), np.number) else x)
 
 
 
@@ -115,10 +121,13 @@ try:
     tempreture_df = tempreture_df.groupby(['Date', 'Area']).agg({'Value': 'mean'}).reset_index()
     #tempreture_df = tempreture_df.reset_index()
     tempreture_df['Date'] = pd.to_datetime(tempreture_df['Date']).dt.strftime('%Y-%m')
+    tempreture_df = tempreture_df[(tempreture_df['Date'] >= '1998-02') & (tempreture_df['Date'] <= '2020-07')]
 
     print(final_stock_df.head())
+    print('343434333333333')
     print(tempreture_df.head())
-
+    print(tempreture_df.tail())
+    print('343434333333333')
 
     '''
         *****************************************************
@@ -129,12 +138,15 @@ try:
     # Handle missing values
     merged_df.dropna(inplace=True)
 
-    print(merged_df.head())
+    print(merged_df.tail())
+    
 
     '''************************************************************'''
 
     # Pivot the data frame to have countries as columns and dates as rows
     pivot_df = tempreture_df.pivot(index='Date', columns='Area', values='Value')
+    print('%%%%%%%%%%%%%%%%%%%%%%%')
+    print(pivot_df.head())
 
     # Compute the correlation matrix
     countries_temp_correlation_matrix = pivot_df.corr()
@@ -192,9 +204,9 @@ try:
 
     os.makedirs(os.path.dirname("../data/stocks_temp.db"), exist_ok = True)
     connection = sqlite3.connect("../data/stocks_temp.db")
-    #final_stock_df.to_sql('stocks', connection, if_exists = "replace", index = False)
-    #tempreture_df.to_sql('tempreture', connection, if_exists = "replace", index = False)
-
+    final_stock_df.to_sql('stocks', connection, if_exists = "replace", index = False)
+    pivot_df.to_sql('tempreture', connection, if_exists = "replace", index = False)
+    #merged_df.to_sql
     
     connection.close()
     print("Done.")
