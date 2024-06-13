@@ -4,109 +4,15 @@ Warning: Your Kaggle API key is readable by other users on this system! To fix t
 Warning: Your Kaggle API key is readable by other users on this system! To fix this, you can run 'chmod 600 /home/ali/.kaggle/kaggle.json'
 Dataset URL: https://www.kaggle.com/datasets/aayushmishra1512/faang-complete-stock-data
 Dataset URL: https://www.kaggle.com/datasets/sevgisarac/temperature-change
-      Date  Amazon_price  Apple_price
-0  1998-02      5.682292     0.188058
-1  1998-03      6.725261     0.227958
-2  1998-04      7.375000     0.244699
-3  1998-05      7.536459     0.241629
-4  1998-06     11.979166     0.246372
-343434333333333
-          Date            Area  Value
-96836  1998-02     Afghanistan -0.656
-96837  1998-02         Albania  2.235
-96838  1998-02         Algeria  1.073
-96839  1998-02  American Samoa    NaN
-96840  1998-02         Andorra  2.320
-           Date                       Area  Value
-161100  2020-07  Wallis and Futuna Islands  1.236
-161101  2020-07             Western Sahara  2.217
-161102  2020-07                      Yemen    NaN
-161103  2020-07                     Zambia -0.288
-161104  2020-07                   Zimbabwe  0.001
-343434333333333
-          Date  Amazon_price  Apple_price                       Area  Value
-64262  2020-07   2961.334961    98.770001                   Viet Nam  1.572
-64264  2020-07   2961.334961    98.770001  Wallis and Futuna Islands  1.236
-64265  2020-07   2961.334961    98.770001             Western Sahara  2.217
-64267  2020-07   2961.334961    98.770001                     Zambia -0.288
-64268  2020-07   2961.334961    98.770001                   Zimbabwe  0.001
-%%%%%%%%%%%%%%%%%%%%%%%
-Area     Afghanistan  Albania  Algeria  ...  Yemen  Zambia  Zimbabwe
-Date                                    ...                         
-1998-02       -0.656    2.235    1.073  ...    NaN   1.796     1.135
-1998-03       -0.668   -1.495   -0.147  ...    NaN   1.977     2.056
-1998-04        1.401    1.345    2.745  ...    NaN   0.854     1.007
-1998-05        0.339    0.269    0.428  ...  1.383   0.326     0.880
-1998-06       -0.529    1.539    1.194  ...  1.886   0.677     1.133
-
-[5 rows x 242 columns]
-              Amazon_price  Apple_price     Value
-Amazon_price      1.000000     0.952222  0.175111
-Apple_price       0.952222     1.000000  0.183537
-Value             0.175111     0.183537  1.000000
-Lag 1:
-  ssr_ftest - F-statistic: 4.4430, p-value: 0.0350
-  ssr_chi2test - F-statistic: 4.4432, p-value: 0.0350
-  lrtest - F-statistic: 4.4430, p-value: 0.0350
-  params_ftest - F-statistic: 4.4430, p-value: 0.0350
-Lag 2:
-  ssr_ftest - F-statistic: 2.2999, p-value: 0.1003
-  ssr_chi2test - F-statistic: 4.6002, p-value: 0.1002
-  lrtest - F-statistic: 4.6000, p-value: 0.1003
-  params_ftest - F-statistic: 2.2999, p-value: 0.1003
-Lag 3:
-  ssr_ftest - F-statistic: 1.9235, p-value: 0.1233
-  ssr_chi2test - F-statistic: 5.7711, p-value: 0.1233
-  lrtest - F-statistic: 5.7708, p-value: 0.1233
-  params_ftest - F-statistic: 1.9235, p-value: 0.1233
-Lag 4:
-  ssr_ftest - F-statistic: 1.9397, p-value: 0.1008
-  ssr_chi2test - F-statistic: 7.7600, p-value: 0.1008
-  lrtest - F-statistic: 7.7595, p-value: 0.1008
-  params_ftest - F-statistic: 1.9397, p-value: 0.1008
-Lag 5:
-  ssr_ftest - F-statistic: 1.7796, p-value: 0.1132
-  ssr_chi2test - F-statistic: 8.8995, p-value: 0.1131
-  lrtest - F-statistic: 8.8988, p-value: 0.1132
-  params_ftest - F-statistic: 1.7796, p-value: 0.1132
-Lag 6:
-  ssr_ftest - F-statistic: 1.5351, p-value: 0.1621
-  ssr_chi2test - F-statistic: 9.2124, p-value: 0.1620
-  lrtest - F-statistic: 9.2117, p-value: 0.1620
-  params_ftest - F-statistic: 1.5351, p-value: 0.1621
-Lag 7:
-  ssr_ftest - F-statistic: 1.4095, p-value: 0.1963
-  ssr_chi2test - F-statistic: 9.8691, p-value: 0.1961
-  lrtest - F-statistic: 9.8683, p-value: 0.1962
-  params_ftest - F-statistic: 1.4095, p-value: 0.1963
-Lag 8:
-  ssr_ftest - F-statistic: 1.2553, p-value: 0.2621
-  ssr_chi2test - F-statistic: 10.0452, p-value: 0.2619
-  lrtest - F-statistic: 10.0443, p-value: 0.2619
-  params_ftest - F-statistic: 1.2553, p-value: 0.2621
-Lag 9:
-  ssr_ftest - F-statistic: 1.3097, p-value: 0.2256
-  ssr_chi2test - F-statistic: 11.7910, p-value: 0.2253
-  lrtest - F-statistic: 11.7899, p-value: 0.2254
-  params_ftest - F-statistic: 1.3097, p-value: 0.2256
-Lag 10:
-  ssr_ftest - F-statistic: 1.1799, p-value: 0.2988
-  ssr_chi2test - F-statistic: 11.8031, p-value: 0.2984
-  lrtest - F-statistic: 11.8020, p-value: 0.2985
-  params_ftest - F-statistic: 1.1799, p-value: 0.2988
-Lag 11:
-  ssr_ftest - F-statistic: 1.1219, p-value: 0.3386
-  ssr_chi2test - F-statistic: 12.3451, p-value: 0.3383
-  lrtest - F-statistic: 12.3438, p-value: 0.3384
-  params_ftest - F-statistic: 1.1219, p-value: 0.3386
-Lag 12:
-  ssr_ftest - F-statistic: 1.1160, p-value: 0.3412
-  ssr_chi2test - F-statistic: 13.3976, p-value: 0.3408
-  lrtest - F-statistic: 13.3962, p-value: 0.3409
-  params_ftest - F-statistic: 1.1160, p-value: 0.3412
 Done.
-*******************
-[('stocks',), ('tempreture',)]
-stocks:  270
-temp:  270
+test1: Check if the SQLite database file was created
+Passed
+Test2: Check if the expected tables are in the database
+Passed
+Test3: Check if the stocks table has data
+Passed
+Test4: Check if the tempreture table has data
+Passed
+Test5: Check if the number of the rows in both tables match
+Passed
 All tests passed successfully.

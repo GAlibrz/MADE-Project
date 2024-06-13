@@ -86,14 +86,9 @@ try:
 
     tempreture_df = pd.read_csv(tempreture_csv_path)
     tempreture_df = tempreture_df.filter(items = tempreture_columns_to_keep)
-    #print(tempreture_df.dtypes)
-    #print('countries before', len(tempreture_df['Area'].unique()))
-    #print(len(tempreture_df))
-    tempreture_df = tempreture_df[tempreture_df['Months Code'] < 7013]
-    #print('here')
-    #print(len(tempreture_df))
 
-    #print('countries After', len(tempreture_df['Area'].unique()))
+    tempreture_df = tempreture_df[tempreture_df['Months Code'] < 7013]
+
 
     '''
         *****************************************************
@@ -107,9 +102,7 @@ try:
 
     # Apply month mapping
     tempreture_df['Month'] = tempreture_df['Months'].map(month_map)
-    #print('*****************************************')
-    #print(tempreture_df)
-    #print('*****************************************')
+
 
 
     # Combine 'Year' and 'Month' to create a date column
@@ -123,11 +116,7 @@ try:
     tempreture_df['Date'] = pd.to_datetime(tempreture_df['Date']).dt.strftime('%Y-%m')
     tempreture_df = tempreture_df[(tempreture_df['Date'] >= '1998-02') & (tempreture_df['Date'] <= '2020-07')]
 
-    print(final_stock_df.head())
-    print('343434333333333')
-    print(tempreture_df.head())
-    print(tempreture_df.tail())
-    print('343434333333333')
+
 
     '''
         *****************************************************
@@ -138,15 +127,13 @@ try:
     # Handle missing values
     merged_df.dropna(inplace=True)
 
-    print(merged_df.tail())
     
 
     '''************************************************************'''
 
     # Pivot the data frame to have countries as columns and dates as rows
     pivot_df = tempreture_df.pivot(index='Date', columns='Area', values='Value')
-    print('%%%%%%%%%%%%%%%%%%%%%%%')
-    print(pivot_df.head())
+
 
     # Compute the correlation matrix
     countries_temp_correlation_matrix = pivot_df.corr()
@@ -175,7 +162,6 @@ try:
     '''***************************************'''
 
     tmp_stock_correlation_matrix = merged_df[['Amazon_price', 'Apple_price', 'Value']].corr()
-    print(tmp_stock_correlation_matrix)
 
     # Plotting the correlation
     plt.figure(figsize=(8, 6))
@@ -195,11 +181,11 @@ try:
 
 
 # Display the results for each lag
-    for lag, results in granger_test_result.items():
-        print(f"Lag {lag}:")
-        for test, result in results[0].items():
+   # for lag, results in granger_test_result.items():
+    #    print(f"Lag {lag}:")
+     #   for test, result in results[0].items():
             
-            print(f"  {test} - F-statistic: {result[0]:.4f}, p-value: {result[1]:.4f}")
+      #      print(f"  {test} - F-statistic: {result[0]:.4f}, p-value: {result[1]:.4f}")
     '''*************************************************************'''
 
     os.makedirs(os.path.dirname("../data/stocks_temp.db"), exist_ok = True)
