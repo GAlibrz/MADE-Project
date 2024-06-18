@@ -60,7 +60,7 @@ constraint MustBe1645 oftype RangeConstraint{
 }
 
 valuetype geographical oftype decimal{
-    constraints : [Range180, GeographicalFormatConstraint];
+    constraints : [Range180];
 }
 
 constraint Range180 oftype RangeConstraint{
