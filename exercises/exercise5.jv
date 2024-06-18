@@ -1,0 +1,74 @@
+pipeline StopsPipeline{
+    DatasetExtractor
+    ->GTFSUnarchiver
+    -> DatasetFilePicker
+    -> StopsTextFileInterpreter
+    -> StopsCSVInterpreter
+    -> StopsTableInterpreter
+    ->StopsDatabaseWriter;
+
+
+    block DatasetExtractor oftype HttpExtractor{
+        url: "https://gtfs.rhoenenergie-bus.de/GTFS.zip";
+
+    }
+
+    block GTFSUnarchiver oftype ArchiveInterpreter
+    {
+        archiveType : "zip";
+    }
+
+    block DatasetFilePicker oftype FilePicker{
+        path:"/stops.txt";
+    }
+
+    block StopsTextFileInterpreter oftype TextFileInterpreter{
+        encoding : "utf8";
+    }
+
+    block StopsCSVInterpreter oftype CSVInterpreter{
+        enclosing : '"';
+        //delimiter : ',';
+    }
+
+
+    block StopsTableInterpreter oftype TableInterpreter{
+        header: true;
+        columns: [
+            "stop_id" oftype integer,
+            "stop_name" oftype text,
+            "stop_lat" oftype geographical,
+            "stop_lon" oftype geographical,
+            "zone_id" oftype Zone1645
+        ];
+        
+    }
+
+    block StopsDatabaseWriter oftype SQLiteLoader{
+        table : "stops";
+        file : "./gtfs.sqlite";
+    }
+}
+
+valuetype Zone1645 oftype integer{
+    constraints : [MustBe1645];
+}
+
+constraint MustBe1645 oftype RangeConstraint{
+    lowerBound : 1645;
+    upperBound : 1645;
+}
+
+valuetype geographical oftype decimal{
+    constraints : [Range180, GeographicalFormatConstraint];
+}
+
+constraint Range180 oftype RangeConstraint{
+    lowerBound : -90;
+    upperBound : 90;
+}
+
+constraint GeographicalFormatConstraint oftype RegexConstraint{
+    regex: /^-?(\d{1,3})\.\d+\,\s-?(\d{1,3})\.\d+$/;
+
+}
