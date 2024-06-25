@@ -22,9 +22,6 @@ chardet==5.2.0
 charset-normalizer==3.2.0
 clyent==0.3.4
 colorama==0.4.6
-conda==4.12.0
-conda-build==3.21.8
-conda-verify==3.4.2
 constantly==15.1.0
 cryptography==41.0.3
 cssselect==1.2.0
