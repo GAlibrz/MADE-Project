@@ -187,17 +187,19 @@ try:
             
       #      print(f"  {test} - F-statistic: {result[0]:.4f}, p-value: {result[1]:.4f}")
     '''*************************************************************'''
+    
 
-    os.makedirs(os.path.dirname("../data/stocks_temp.db"), exist_ok = True)
-    connection = sqlite3.connect("../data/stocks_temp.db")
+    os.makedirs("data", exist_ok=True)
+    connection = sqlite3.connect("data/stocks_temp.db")
     final_stock_df.to_sql('stocks', connection, if_exists = "replace", index = False)
     pivot_df.to_sql('tempreture', connection, if_exists = "replace", index = False)
     #merged_df.to_sql
     
     connection.close()
-    print("Done.")
+    print("Database created successfully.")
 
 except Exception as e:
 
     print(f"Error: {e}")
+    raise
 
