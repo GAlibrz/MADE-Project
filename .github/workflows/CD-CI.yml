@@ -1,0 +1,41 @@
+name: CI/CD Data Engineering Project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Checkout CI feedback
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Set up Kaggle credentials
+      run: |
+          mkdir -p ~/.kaggle
+          echo "{\"username\":\"${{ secrets.KAGGLE_USERNAME }}\",\"key\":\"${{ secrets.KAGGLE_KEY }}\"}" > ~/.kaggle/kaggle.json
+          chmod 600 ~/.kaggle/kaggle.json    
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r ./dependencies.txt
+
+    # - name: Download Kaggle datasets
+    #   run: |
+    #     kaggle datasets download -d adamwurdits/finland-norway-and-sweden-weather-data-20152019 -p data/ --unzip
+    #     kaggle datasets download -d sazidthe1/global-inflation-data -p data/ --unzip
+
+    # - name: List downloaded files
+    #   run: ls -R data/
+
+    - name: Run tests
+      run: bash project/tests.sh
