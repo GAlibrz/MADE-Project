@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# Print current working directory
-echo "Current working directory:"
-pwd
-
-# List contents of current directory
-echo "Contents of current directory:"
-ls -R
 
 # Define the paths
 LOG_FILE="../logs/pipeline_test.log"

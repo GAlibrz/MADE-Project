@@ -36,10 +36,6 @@ jobs:
 
     # - name: List downloaded files
     #   run: ls -R data/
-    - name: Print directory structure
-      run: |
-        pwd
-        ls -R
     - name: Run tests
       run: |
         chmod +x project/tests.sh

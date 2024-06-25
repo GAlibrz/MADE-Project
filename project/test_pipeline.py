@@ -4,12 +4,7 @@ import sqlite3
 def test_pipeline():
     db_path = "data/stocks_temp.db"
 
-    print(f"Current working directory: {os.getcwd()}")
-    print(f"Contents of current directory: {os.listdir()}")
-    print(f"Contents of data directory: {os.listdir('data')}")
-
     os.system("python3 project/csv2db.py")
-    print(f"After running csv2db.py, contents of data directory: {os.listdir('data')}")
 
     # Test1: Check if the SQLite database file was created
     print("test1: Check if the SQLite database file was created")
