@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the paths
-LOG_FILE="../logs/pipeline_test.log"
+LOG_FILE="pipeline_test.log"
 
 # Create necessary directories
 mkdir -p ../logs
