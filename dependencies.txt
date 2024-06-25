@@ -1,5 +1,5 @@
 
-sqlite3
+pysqlite3
 pandas
 
 kaggle.api.kaggle_api_extended
