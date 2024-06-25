@@ -2,7 +2,7 @@
 pysqlite3
 pandas
 
-kaggle.api.kaggle_api_extended
-matplotlib.pyplot
-statsmodels.tsa.stattools
+kaggle
+matplotlib
+statsmodels
 numpy
