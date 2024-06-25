@@ -2,7 +2,7 @@ import os
 import sqlite3
 
 def test_pipeline():
-    db_path = "data/stocks_temp.db"
+    db_path = "../data/stocks_temp.db"
 
     os.system("python3 project/csv2db.py")
 
