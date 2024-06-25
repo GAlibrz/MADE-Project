@@ -20,7 +20,7 @@ Bybit==0.2.12
 certifi==2023.7.22
 chardet==5.2.0
 charset-normalizer==3.2.0
-clyent==1.2.2
+clyent==0.3.4
 colorama==0.4.6
 conda==4.12.0
 conda-build==3.21.8
