@@ -1,7 +1,7 @@
-os
+
 sqlite3
 pandas
-gc
+
 kaggle.api.kaggle_api_extended
 matplotlib.pyplot
 statsmodels.tsa.stattools
