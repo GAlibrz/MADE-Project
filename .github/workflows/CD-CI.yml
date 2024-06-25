@@ -38,4 +38,13 @@ jobs:
     #   run: ls -R data/
 
     - name: Run tests
-      run: bash project/tests.sh
+      run: |
+        chmod +x project/tests.sh
+        bash project/tests.sh
+
+    - name: Upload log file
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: pipeline-test-log
+        path: ../logs/pipeline_test.log
