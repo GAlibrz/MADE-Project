@@ -2,9 +2,9 @@ import os
 import sqlite3
 
 def test_pipeline():
-    db_path = "../data/stocks_temp.db"
+    db_path = "data/stocks_temp.db"
 
-    os.system("python3 csv2db.py")
+    os.system("python3 project/csv2db.py")
 
     # Test1: Check if the SQLite database file was created
     print("test1: Check if the SQLite database file was created")

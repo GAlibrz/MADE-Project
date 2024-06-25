@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Print current working directory
+echo "Current working directory:"
+pwd
+
+# List contents of current directory
+echo "Contents of current directory:"
+ls -R
+
 # Define the paths
 LOG_FILE="../logs/pipeline_test.log"
 
@@ -8,7 +16,7 @@ mkdir -p ../logs
 
 # Run the Python test script and log the output
 echo "Running the Python test script..."
-python3 test_pipeline.py > $LOG_FILE 2>&1
+python3 project/test_pipeline.py > $LOG_FILE 2>&1
 TEST_EXIT_CODE=$?
 
 # Display the contents of the log file
