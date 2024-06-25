@@ -1,6 +1,6 @@
 os
 sqlite3
-pandas as pd
+pandas
 gc
 kaggle.api.kaggle_api_extended
 matplotlib.pyplot
